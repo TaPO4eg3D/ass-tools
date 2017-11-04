@@ -14,16 +14,16 @@ All available functions:
         -backward   - shift times backward
     --sbl - calculate difference between first dialog and input, then shift times
             Accept only one file, folder is not allowed
-    --rename - rename all files in folder. Accepts mask and regex
+    --rename - rename all files in folder. Accepts mask, regex and counter start point
                Mask example: 'ShowName - {}', where '{}' is counter
                Regex example: dd, regex defines counter format, in this case
                               counter would be 01, 02, 03 and so on..
     Example of --rename:
-    asst subtitle_folder --rename '[SubGroup]Anime - {}' dd
+    asst subtitle_folder --rename '[SubGroup]Anime - {}' dd 04
     
         result of this command would be:
-            [SubGroup]Anime - 01.ass
-            [SubGroup]Anime - 02.ass
-            [SubGroup]Anime - 03.ass
+            [SubGroup]Anime - 04.ass
+            [SubGroup]Anime - 05.ass
+            [SubGroup]Anime - 06.ass
             And so on...
 ```
