@@ -50,33 +50,26 @@ def shift_by_line(subtitle):
     subtitle.save()
 
 
-def multiple_rename(subtitle, mask, regex):
+def multiple_rename(subtitle):
     if not re.search('{}', mask):
         print('Enter correct mask')
         exit(0)
     subtitle.rename(mask[1:-1], regex, sys.argv[1])  # The last one is folder
 
 
-# Handle parameters
-def parameters(file, is_dir=False):
-    subtitle = Subtitle(file)
-    if sys.argv[2] == '--sbt':
-        shift_by_time(subtitle)
-    elif sys.argv[2] == '--rename':
-        if not is_dir:
-            print('Only directory allowed')
-            exit(0)
-        args = sys.argv[3:-1]
-        args = ' '.join(args)
-        multiple_rename(subtitle, args, sys.argv[-1])
-    elif sys.argv[2] == '--sbl':
-        if is_dir:
-            print('Directory is not allowed')
-            exit(0)
-        shift_by_line(subtitle)
+def start(func):
+    if not os.path.isdir(sys.argv[1]):
+        if not is_valid(sys.argv[1]):
+            pass
+        else:
+            func(Subtitle(sys.argv[1]))
     else:
-        print('Unknown option, type "--help" for list of available options')
-        exit(0)
+        for file in os.listdir(sys.argv[1]):
+            file_path = os.path.join(sys.argv[1], file)
+            if not is_valid(file_path):
+                pass
+            else:
+                func(Subtitle(file_path))
 
 
 # Check on file or dir
@@ -95,30 +88,42 @@ All available functions:
         -backward   - shift times backward
     --sbl - calculate difference between first dialog and input, then shift times
             Accept only one file, folder is not allowed
-    --rename - rename all files in folder. Accepts mask and regex
+    --rename - rename all files in folder. Accepts mask, regex and counter start point
                Mask example: 'ShowName - {}', where '{}' is counter
                Regex example: dd, regex defines counter format, in this case
                               counter would be 01, 02, 03 and so on..
     Example of --rename:
-    asst subtitle_folder --rename '[SubGroup]Anime - {}' dd
+    asst subtitle_folder --rename '[SubGroup]Anime - {}' dd 04
     
         result of this command would be:
-            [SubGroup]Anime - 01.ass
-            [SubGroup]Anime - 02.ass
-            [SubGroup]Anime - 03.ass
+            [SubGroup]Anime - 04.ass
+            [SubGroup]Anime - 05.ass
+            [SubGroup]Anime - 06.ass
             And so on...
         """
     )
     exit(0)
+
+is_dir = True
 if not os.path.isdir(sys.argv[1]):
-    if not is_valid(sys.argv[1]):
-        pass
-    else:
-        parameters(sys.argv[1])
+    is_dir = False
+
+if sys.argv[2] == '--sbt':
+    start(shift_by_time)
+elif sys.argv[2] == '--rename':  # Only for directories
+    if not is_dir:
+        print('Only directories are allowed')
+        exit(0)
+    args = sys.argv[3:-2]
+    mask = ' '.join(args)
+    regex = sys.argv[-2]
+    Subtitle.counter = int(sys.argv[-1]) - 1
+    start(multiple_rename)
+elif sys.argv[2] == '--sbl':  # Only for a single file
+    if is_dir:
+        print('Only a single file allowed')
+        exit(0)
+    start(shift_by_line)
 else:
-    for file in os.listdir(sys.argv[1]):
-        file_path = os.path.join(sys.argv[1], file)
-        if not is_valid(file_path):
-            pass
-        else:
-            parameters(file_path, True)
+    print('Unknown option, type "--help" for list of available options')
+    exit(0)
