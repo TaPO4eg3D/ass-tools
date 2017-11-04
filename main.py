@@ -13,7 +13,7 @@ def is_valid(file_str):
 
 # Check time format
 def is_time_valid(time):
-    time = re.findall(r'\d+', sys.argv[4])
+    time = re.findall(r'\d+', time)
     if len(time) != 4:
         return False
     for i in time:
@@ -24,18 +24,6 @@ def is_time_valid(time):
 
 
 def shift_by_time(subtitle):
-    forward = True
-    if sys.argv[3] == '-forward':
-        pass
-    elif sys.argv[3] == '-backward':
-        forward = False
-    else:
-        print('Unknown parameter, for this option only -forward and -backward available')
-        exit(0)
-
-    if not is_time_valid(sys.argv[4]):
-        print('Incorrect format of time. Time should be like 00:00:00.00')
-        exit(0)
 
     subtitle.shift_time_by_time(forward, sys.argv[4])
     subtitle.save()
@@ -51,9 +39,6 @@ def shift_by_line(subtitle):
 
 
 def multiple_rename(subtitle):
-    if not re.search('{}', mask):
-        print('Enter correct mask')
-        exit(0)
     subtitle.rename(mask[1:-1], regex, sys.argv[1])  # The last one is folder
 
 
@@ -109,15 +94,46 @@ if not os.path.isdir(sys.argv[1]):
     is_dir = False
 
 if sys.argv[2] == '--sbt':
+    forward = True
+    if sys.argv[3] == '-forward':
+        pass
+    elif sys.argv[3] == '-backward':
+        forward = False
+    else:
+        print('Unknown parameter, for this option only -forward and -backward available')
+        exit(0)
+
+    if not is_time_valid(sys.argv[4]):
+        print('Incorrect format of time. Time should be like 00:00:00.00')
+        exit(0)
+
     start(shift_by_time)
 elif sys.argv[2] == '--rename':  # Only for directories
     if not is_dir:
         print('Only directories are allowed')
         exit(0)
+
+    try:
+        Subtitle.counter = int(sys.argv[-1]) - 1
+    except ValueError:
+        print('Incorrect counter start point')
+        exit(0)
+
+    regex = sys.argv[-2]
+    for i in regex:
+        if i != 'd':
+            print('Incorrect regex')
+            exit(0)
+
     args = sys.argv[3:-2]
     mask = ' '.join(args)
-    regex = sys.argv[-2]
-    Subtitle.counter = int(sys.argv[-1]) - 1
+    if mask[0] != "'" and mask[-1] != "'":
+        print('Mask should be wrapped in single quotes')
+        exit(0)
+    if not re.search('{}', mask):
+        print('Incorrect mask. Mask should contain at least one {}')
+        exit(0)
+
     start(multiple_rename)
 elif sys.argv[2] == '--sbl':  # Only for a single file
     if is_dir:
