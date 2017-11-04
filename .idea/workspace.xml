@@ -2,8 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b80f9898-d1f7-4f09-9285-d37ebf537840" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sub.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 04.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 05.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 06.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 07.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 08.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 09.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 10.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 11.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 12.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 13.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 14.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 15.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 16.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 17.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 18.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 19.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 20.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 21.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 22.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 23.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 24.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 25.ass" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/subs/Anime_is_cool - 26.ass" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -232,9 +254,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
