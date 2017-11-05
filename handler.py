@@ -95,24 +95,18 @@ class Subtitle:
             dialog_line[2] = self.calculate_time(end_time, shift_time, forward)
             self.dialogues[i][1] = ','.join(dialog_line)
 
-    def shift_time_by_first_line(self, first_line_shift='00:00:00.00'):
-        dialog_line = self.dialogues[0][1].split(',')
-        first_line_start = self.convert_to_time(dialog_line[1])
-        first_line_shift = self.convert_to_time(first_line_shift)
+    def line_difference(self, line_number, second_time='00:00:00.00'):
+        dialog_line = self.dialogues[line_number][1].split(',')
+        first_time = self.convert_to_time(dialog_line[1])
+        second_time = self.convert_to_time(second_time)
         forward = True
-        if self.convert_time_to_ms(first_line_start) > self.convert_time_to_ms(first_line_shift):
-            difference = self.calculate_time(first_line_start, first_line_shift, False)
+        if self.convert_time_to_ms(first_time) > self.convert_time_to_ms(second_time):
+            difference = self.calculate_time(first_time, second_time, False)
             forward = False
         else:
-            difference = self.calculate_time(first_line_shift, first_line_start, False)
-        if difference == '00:00:00.00':
-            print('There is no need to shift')
-            exit(0)
-        self.shift_time_by_time(forward, difference)
-        delimiter = '+'
-        if not forward:
-            delimiter = '-'
-        print('Successfully shifted. Difference is: ' + delimiter + difference)
+            difference = self.calculate_time(first_time, second_time, False)
+
+        return [difference, forward]
 
     @classmethod
     def change_counter(cls):

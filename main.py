@@ -33,9 +33,42 @@ def shift_by_time(subtitle):
     print('Shifting is done: ' + delimiter + sys.argv[4])
 
 
-def shift_by_line(subtitle):
-    subtitle.shift_time_by_first_line(sys.argv[3])
-    subtitle.save()
+def smart_shift_handler(time_list):
+    first = Subtitle.convert_to_time(time_list[0][0])
+    first = Subtitle.convert_time_to_ms(first)
+    for i in range(1, len(time_list)):
+        current = Subtitle.convert_to_time(time_list[i][0])
+        current = Subtitle.convert_time_to_ms(current)
+        if first - current >= 50:
+            return False
+
+    return True
+
+
+def smart_shift(subtitle):
+    time = []
+    steps = 0
+    for i in range(len(subtitle.dialogues)):
+        steps += 1
+        second_subtitle_dialog = second_subtitle.dialogues[i][1].split(',')[1]  # Get start time of the line
+        time.append(subtitle.line_difference(i, second_subtitle_dialog))
+        if steps == 5:
+            if smart_shift_handler(time):
+                subtitle.shift_time_by_time(time[0][1], time[0][0])
+                subtitle.save()
+                delimiter = {
+                    True: '+',
+                    False: '-'
+                }
+                print('Shifting is done. Difference is {}{}'.format(
+                    delimiter[time[0][1]],
+                    time[0][0]
+                ))
+                exit(0)
+            else:
+                time.clear()
+                steps = 0
+    print("Can't do smart shifting...")
 
 
 def multiple_rename(subtitle):
@@ -71,8 +104,11 @@ All available functions:
     --sbt   - shift times accept extra arguments:
         -forward    - shift times forward
         -backward   - shift times backward
-    --sbl - calculate difference between first dialog and input, then shift times
+    --smart - automatically calculate difference between two files and shift times
+              accordingly 
             Accept only one file, folder is not allowed
+        Example:
+        asst incorrect_timing.ass --smart correct_timing.ass
     --rename - rename all files in folder. Accepts mask, regex and counter start point
                Mask example: 'ShowName - {}', where '{}' is counter
                Regex example: dd, regex defines counter format, in this case
@@ -135,11 +171,12 @@ elif sys.argv[2] == '--rename':  # Only for directories
         exit(0)
 
     start(multiple_rename)
-elif sys.argv[2] == '--sbl':  # Only for a single file
+elif sys.argv[2] == '--smart':  # Only for a single file
     if is_dir:
         print('Only a single file allowed')
         exit(0)
-    start(shift_by_line)
+    second_subtitle = Subtitle(sys.argv[3])
+    start(smart_shift)
 else:
     print('Unknown option, type "--help" for list of available options')
     exit(0)
